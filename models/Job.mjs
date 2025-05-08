@@ -10,6 +10,10 @@ const jobSchema = new mongoose.Schema(
       type: String,
       required: true
     },
+    skills: [{
+      type: String,
+      required: true 
+    }],
     status: {
       type: String,
       enum: ["applied", "interviewing", "offered", "rejected"],
