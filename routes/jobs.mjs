@@ -4,6 +4,7 @@ import express from "express"
 const router = express.Router()
 
 router.get("/", jobs.getAllJobs)
+router.post("/", jobs.createNewJob)
 router.get("/seed", jobs.generateJobs)
 router.get("/:id", jobs.getJob)
 router.delete("/:id", jobs.removeJob)

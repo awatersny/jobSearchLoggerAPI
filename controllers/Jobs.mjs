@@ -11,6 +11,14 @@ export async function getAllJobs(req, res) {
   }
 }
 
+export async function createNewJob(req, res) {
+  try {
+    res.json({status: 201})
+  } catch (error) {
+    res.json({error: error})
+  }
+}
+
 export async function generateJobs (req, res) {
   try {
     const jobs = await Job.find()
@@ -19,7 +27,7 @@ export async function generateJobs (req, res) {
     }
     res.redirect('/jobs')
   } catch (error) {
-    console.error(error)
+    res.json({error: error})
   }
 }
 

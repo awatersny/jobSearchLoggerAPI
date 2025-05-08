@@ -12,6 +12,14 @@ export async function getAllCompanies(req, res) {
   } 
 }
 
+export async function createNewCompany(req, res) {
+  try {
+    res.json({status: 201})
+  } catch (error) {
+    res.json({error: error})
+  }
+}
+
 export async function generateCompanies (req, res) {
   try {
     const companies = await Company.find()
