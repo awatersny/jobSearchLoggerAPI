@@ -12,15 +12,6 @@ export async function getAllCompanies(req, res) {
   } 
 }
 
-export async function getCompany(req, res) {
-  try {
-    const company = await Company.findById(req.params.id)
-    res.status(200).json(company)
-  } catch (error) {
-    res.json({error: error})
-  } 
-}
-
 export async function generateCompanies (req, res) {
   try {
     const companies = await Company.find()
@@ -31,6 +22,15 @@ export async function generateCompanies (req, res) {
   } catch (error) {
     res.json({error: error})
   }
+}
+
+export async function getCompany(req, res) {
+  try {
+    const company = await Company.findById(req.params.id)
+    res.status(200).json(company)
+  } catch (error) {
+    res.json({error: error})
+  } 
 }
 
 export async function removeCompany(req, res) {

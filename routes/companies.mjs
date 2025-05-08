@@ -4,7 +4,8 @@ import express from "express"
 const router = express.Router()
 
 router.get("/", companies.getAllCompanies)
-router.get("/:id", companies.getCompany)
 router.get("/seed", companies.generateCompanies)
+router.get("/:id", companies.getCompany)
+router.delete("/:id", companies.removeCompany)
 
 export default router
