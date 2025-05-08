@@ -11,9 +11,11 @@ export async function getAllJobs(req, res) {
   }
 }
 
+//Double check for edge cases
 export async function createNewJob(req, res) {
   try {
-    res.json({status: 201})
+    await Job.create(req.body)
+    res.json([{msg: "Job Created"}, req.body])
   } catch (error) {
     res.json({error: error})
   }
