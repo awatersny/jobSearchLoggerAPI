@@ -14,6 +14,10 @@ const companySchema = new mongoose.Schema(
       type: String,
       required: true
     }],
+    website: {
+      type: String,
+      required: true
+    },
     jobs: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: "Job",
@@ -22,6 +26,6 @@ const companySchema = new mongoose.Schema(
   }
 )
 
-const Job = mongoose.model("Job", companySchema)
+const Company = mongoose.model("Company", companySchema)
 
-export default Job
+export default Company

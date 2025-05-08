@@ -2,6 +2,8 @@ import express from "express"
 import dotenv from "dotenv"
 import mongoose from "mongoose"
 import index from "./routes/index.mjs"
+import jobs from "./routes/jobs.mjs"
+import companies from "./routes/companies.mjs"
 import error from "./utilities/error.mjs"
 
 dotenv.config()
@@ -34,6 +36,8 @@ app.use((req, res, next) => {
 });
 
 app.use("/", index)
+app.use("/jobs", jobs)
+app.use("/companies", companies)
 
 app.use((req, res, next) => {
   next(error(404, "Not Found."));

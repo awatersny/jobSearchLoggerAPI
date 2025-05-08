@@ -3,6 +3,8 @@ import express from "express"
 
 const router = express.Router()
 
-router.get("/jobs", companies.getAllCompanies)
+router.get("/", companies.getAllCompanies)
+router.get("/:id", companies.getCompany)
+router.get("/seed", companies.generateCompanies)
 
 export default router

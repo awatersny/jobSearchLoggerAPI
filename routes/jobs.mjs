@@ -3,6 +3,7 @@ import express from "express"
 
 const router = express.Router()
 
-router.get("/jobs", jobs.getAllJobs)
+router.get("/", jobs.getAllJobs)
+router.get("/seed", jobs.generateJobs)
 
 export default router
