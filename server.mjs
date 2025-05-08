@@ -1,26 +1,21 @@
 import express from "express"
 import dotenv from "dotenv"
-import mongoose from "mongoose"
 import index from "./routes/index.mjs"
 import jobs from "./routes/jobs.mjs"
 import companies from "./routes/companies.mjs"
 import error from "./utilities/error.mjs"
 import cors from "cors"
+import "./config/database.mjs"
 
 dotenv.config()
+
 const app = express()
 const PORT = process.env.PORT
-
-mongoose.connect(`${process.env.ATLAS_URI}/jobSearchTracker`)
-
-mongoose.connection.once("open", () => {
-  console.log(`Connected to the ${mongoose.connection.name} database.`)
-})
 
 app.use(express.static("./assets"))
 app.use(express.urlencoded())
 app.use(express.json())
-app.use(cors)
+app.use(cors())
 
 app.use((req, res, next) => {
   const time = new Date()
