@@ -43,6 +43,20 @@ export async function getCompany(req, res) {
   } 
 }
 
+export async function addJobToCompany(req, res) {
+  try {
+    const company = await Company.findById(req.params.id)
+    const job = await Job.findById(req.body.job)
+    job.company = company._id
+    job.save()
+    company.jobs.push(job)
+    company.save()
+    res.json(company)
+  } catch (error) {
+    res.json({error: error})
+  }
+}
+
 export async function removeCompany(req, res) {
   try {
     await Job.deleteMany({company: req.params.id})

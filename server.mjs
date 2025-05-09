@@ -1,13 +1,10 @@
 import express from "express"
-import dotenv from "dotenv"
 import index from "./routes/index.mjs"
 import jobs from "./routes/jobs.mjs"
 import companies from "./routes/companies.mjs"
 import error from "./utilities/error.mjs"
 import cors from "cors"
 import "./config/database.mjs"
-
-dotenv.config()
 
 const app = express()
 const PORT = process.env.PORT
