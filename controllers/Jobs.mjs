@@ -43,6 +43,15 @@ export async function getJob(req, res) {
   } 
 }
 
+export async function editJob(req, res) {
+  try {
+    const job = await Job.findById(req.params.id)
+    res.json({edit: job})
+  } catch (error) {
+    res.json({error: error})
+  }
+}
+
 export async function removeJob(req, res) {
   try {
     const job = await Job.findById(req.params.id)

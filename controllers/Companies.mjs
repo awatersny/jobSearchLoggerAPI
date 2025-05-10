@@ -43,6 +43,15 @@ export async function getCompany(req, res) {
   } 
 }
 
+export async function editCompany(req, res) {
+  try {
+    const company = await Company.findById(req.params.id)
+    res.json({edit: company})
+  } catch (error) {
+    res.json({error: error})
+  }
+}
+
 export async function addJobToCompany(req, res) {
   try {
     const company = await Company.findById(req.params.id)
