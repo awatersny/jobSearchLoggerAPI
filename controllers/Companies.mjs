@@ -46,6 +46,11 @@ export async function getCompany(req, res) {
 export async function editCompany(req, res) {
   try {
     const company = await Company.findById(req.params.id)
+    company.name = req.body.name ? req.body.name : company.name
+    company.description = req.body.description ? req.body.description : company.description
+    company.values = req.body.values ? req.body.values : company.values
+    company.website = req.body.website ? req.body.website : company.website
+    company.save()
     res.json({edit: company})
   } catch (error) {
     res.json({error: error})
