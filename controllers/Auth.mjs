@@ -1,17 +1,18 @@
 import bcrypt from "bcrypt"
+import User from "../models/User.mjs"
 
 const users = []
 
 export async function registerUser (req, res) {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10)
-    users.push({
-      id: Date.now().toString(),
+    const newUser = {
       name: req.body.name,
       email: req.body.email,
       password: hashedPassword
-    })
-    res.json(users)
+    }
+    await User.create(newUser)
+    res.json({newUser: newUser})
   } catch (error) {
     res.json({error: error})
   }
