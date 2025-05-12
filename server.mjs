@@ -2,6 +2,7 @@ import express from "express"
 import index from "./routes/index.mjs"
 import jobs from "./routes/jobs.mjs"
 import companies from "./routes/companies.mjs"
+import auth from "./routes/auth.mjs"
 import error from "./utilities/error.mjs"
 import cors from "cors"
 import "./config/database.mjs"
@@ -29,6 +30,7 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use("/auth", auth)
 app.use("/", index)
 app.use("/jobs", jobs)
 app.use("/companies", companies)
