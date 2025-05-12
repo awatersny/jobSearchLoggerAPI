@@ -1,11 +1,12 @@
 import bcrypt from "bcrypt"
 import User from "../models/User.mjs"
-
-const users = []
+import dotenv from "dotenv"
+dotenv.config()
 
 export async function registerUser (req, res) {
   try {
-    const hashedPassword = await bcrypt.hash(req.body.password, 10)
+    const saltRounds = parseInt(process.env.SALT_ROUNDS)
+    const hashedPassword = await bcrypt.hash(req.body.password, saltRounds)
     const newUser = {
       name: req.body.name,
       email: req.body.email,
