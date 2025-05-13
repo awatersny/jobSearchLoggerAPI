@@ -1,30 +1,21 @@
 import express from "express"
+import cookieParser from "cookie-parser"
 import index from "./routes/index.mjs"
 import jobs from "./routes/jobs.mjs"
 import companies from "./routes/companies.mjs"
 import auth from "./routes/auth.mjs"
 import error from "./utilities/error.mjs"
 import cors from "cors"
-import flash from "express-flash"
-import session from "express-session"
-import passport from "passport"
 import "./config/database.mjs"
 
 const app = express()
 const PORT = process.env.PORT
 
 app.use(express.static("./assets"))
-app.use(express.urlencoded())
+app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
+app.use(cookieParser())
 app.use(cors())
-app.use(flash())
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false
-}))
-app.use(passport.initialize())
-app.use(passport.session())
 
 app.use((req, res, next) => {
   const time = new Date()
