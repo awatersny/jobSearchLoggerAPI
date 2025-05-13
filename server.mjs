@@ -12,7 +12,6 @@ import "./config/database.mjs"
 
 const app = express()
 const PORT = process.env.PORT
-console.log(process.env.SESSION_SECRET)
 
 app.use(express.static("./assets"))
 app.use(express.urlencoded())
