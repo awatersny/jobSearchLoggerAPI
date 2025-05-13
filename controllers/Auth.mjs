@@ -1,6 +1,7 @@
 import bcrypt, { compare } from "bcrypt"
 import User from "../models/User.mjs"
 import dotenv from "dotenv"
+import { sendRefreshToken } from "../utilities/tokens.mjs"
 dotenv.config()
 
 const emailValidation = /^\w+[.-\w]*@\w+[.\w{2,3}]+$/
@@ -16,7 +17,7 @@ export async function registerUser (req, res) {
     const user = await User.findOne({ email: req.body.email })
     if(user) {
         res.json({
-        msg: "User already exists",
+        msg: "User already exists!",
         type: "warning"
       })
     }
@@ -55,6 +56,14 @@ export async function loginUser (req, res) {
         type: "error",
       })
     }
+
+    const accessToken = createAccessToken(user._id)
+    const refreshToken = createRefreshToken(user._id)
+
+    user.refreshtoken = refreshToken
+
+    await user.save()
+    // sendRefreshToken(res, refreshToken)
 
     res.json(req.body)
   } catch (error) {
