@@ -1,7 +1,14 @@
 import bcrypt from "bcrypt"
 import User from "../models/User.mjs"
+import passport from "passport"
+import initializePassport from "../config/passport-config.mjs"
 import dotenv from "dotenv"
 dotenv.config()
+initializePassport(
+  passport, 
+  async (email) => await User.findOne({email: email}),
+  async (id) => await User.findById(id)
+)
 
 export async function registerUser (req, res) {
   try {

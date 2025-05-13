@@ -5,15 +5,27 @@ import companies from "./routes/companies.mjs"
 import auth from "./routes/auth.mjs"
 import error from "./utilities/error.mjs"
 import cors from "cors"
+import flash from "express-flash"
+import session from "express-session"
+import passport from "passport"
 import "./config/database.mjs"
 
 const app = express()
 const PORT = process.env.PORT
+console.log(process.env.SESSION_SECRET)
 
 app.use(express.static("./assets"))
 app.use(express.urlencoded())
 app.use(express.json())
 app.use(cors())
+app.use(flash())
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false
+}))
+app.use(passport.initialize())
+app.use(passport.session())
 
 app.use((req, res, next) => {
   const time = new Date()
