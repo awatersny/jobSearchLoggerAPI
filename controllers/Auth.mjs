@@ -3,12 +3,20 @@ import User from "../models/User.mjs"
 import dotenv from "dotenv"
 dotenv.config()
 
+const emailValidation = /^\w+[.-\w]*@\w+[.\w{2,3}]+$/
+
 export async function registerUser (req, res) {
   try {
+    if(!emailValidation.test(req.body.email)){
+      return res.json({
+        msg: "Invalid email format",
+        type: "warning"
+      })
+    }
     const user = await User.findOne({ email: req.body.email })
     console.log(user)
     if(user) {
-      res.json({
+        res.json({
         msg: "User already exists",
         type: "warning"
       })
@@ -28,6 +36,12 @@ export async function registerUser (req, res) {
 
 export async function loginUser (req, res) {
   try {
+    if(!emailValidation.test(req.body.email)){
+      res.json({
+        msg: "Invalid email format",
+        type: "warning"
+      })
+    }
     const user = await User.findOne({email: req.body.email})
     if(!user) {
       res.json({
