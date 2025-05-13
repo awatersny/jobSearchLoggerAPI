@@ -1,4 +1,4 @@
-import * as jwt from "jsonwebtoken"
+import jwt from "jsonwebtoken"
 // signing the access token
 export const createAccessToken = (id) => {
   return jwt.sign({ id }, process.env.ACCESS_TOKEN_SECRET, {
@@ -14,7 +14,7 @@ export const createRefreshToken = (id) => {
 }
 
 // sending the access token to the client
-export const sendAccessToken = (_req, res, accesstoken) => {
+export const sendAccessToken = (req, res, accesstoken) => {
   res.json({
     accesstoken,
     message: "Sign in Successful 🥳",

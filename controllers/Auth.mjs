@@ -1,7 +1,7 @@
 import bcrypt, { compare } from "bcrypt"
 import User from "../models/User.mjs"
 import dotenv from "dotenv"
-import { sendRefreshToken } from "../utilities/tokens.mjs"
+import * as tokenUtil from "../utilities/tokens.mjs"
 dotenv.config()
 
 const emailValidation = /^\w+[.-\w]*@\w+[.\w{2,3}]+$/
@@ -57,16 +57,23 @@ export async function loginUser (req, res) {
       })
     }
 
-    const accessToken = createAccessToken(user._id)
-    const refreshToken = createRefreshToken(user._id)
+    const accessToken = tokenUtil.createAccessToken(user._id)
+    const refreshToken = tokenUtil.createRefreshToken(user._id)
 
     user.refreshtoken = refreshToken
-
     await user.save()
-    // sendRefreshToken(res, refreshToken)
 
-    res.json(req.body)
+    tokenUtil.sendRefreshToken(res, refreshToken)
+    tokenUtil.sendAccessToken(req, res, accessToken)
   } catch (error) {
     res.json({error: error})
   }
+}
+
+export async function logoutUser(_req, res) {
+  console.log(_req)
+  res.clearCookie("refreshtoken")
+  res.json({
+    msg: "Logged out successfully"
+  })
 }
