@@ -4,12 +4,6 @@ import * as auth from "../controllers/Auth.mjs"
 const router = express.Router()
 
 router.post("/register", auth.registerUser)
-router.post("/login", (req, res) => {
-  try {
-    res.json(req.body)
-  } catch (error) {
-    res.json({error: error})
-  }
-})
+router.post("/login", auth.loginUser)
 
 export default router

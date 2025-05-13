@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt"
+import bcrypt, { compare } from "bcrypt"
 import User from "../models/User.mjs"
 import dotenv from "dotenv"
 dotenv.config()
@@ -21,6 +21,29 @@ export async function registerUser (req, res) {
     }
     await User.create(newUser)
     res.json({newUser: newUser})
+  } catch (error) {
+    res.json({error: error})
+  }
+}
+
+export async function loginUser (req, res) {
+  try {
+    const user = await User.findOne({email: req.body.email})
+    if(!user) {
+      res.json({
+        msg: "User doesn't exist!",
+        type: "error"
+      })
+    }
+    const isMatch = await compare(req.body.password, user.password)
+    if(!isMatch){
+      res.json({
+        msg: "Password is incorrect!",
+        type: "error",
+      })
+    }
+
+    res.json(req.body)
   } catch (error) {
     res.json({error: error})
   }
