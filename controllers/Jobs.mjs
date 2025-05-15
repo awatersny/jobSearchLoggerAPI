@@ -16,7 +16,7 @@ export async function getAllJobs(req, res) {
 export async function createNewJob(req, res) {
   try {
     const job = await Job.create(req.body)
-    res.json([{msg: "Job Created"}, job])
+    res.json([{msg: "Job Created"}, {id: job._id}])
   } catch (error) {
     res.json({error: error})
   }
