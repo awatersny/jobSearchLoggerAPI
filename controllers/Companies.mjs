@@ -15,8 +15,8 @@ export async function getAllCompanies(req, res) {
 //Check for edge cases
 export async function createNewCompany(req, res) {
   try {
-    await Company.create(req.body)
-    res.json([{msg: "Company Created"}, req.body])
+    const company = await Company.create(req.body)
+    res.json([{msg: "Company Created"}, company])
   } catch (error) {
     res.json({error: error})
   }
