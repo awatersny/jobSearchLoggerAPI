@@ -12,7 +12,6 @@ export async function getAllJobs(req, res) {
   }
 }
 
-//Double check for edge cases
 export async function createNewJob(req, res) {
   try {
     const job = await Job.create(req.body)
